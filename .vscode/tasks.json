@@ -10,13 +10,13 @@
                 "-pkg:dotnet",
                 "${file}"
             ],
-            "showOutput": "always"
+            "showOutput": "never"
         },
         {
             "taskName": "run",
             "command": "${cwd}/${fileBasenameNoExtension}.exe",
             "isShellCommand": true,
-            "showOutput": "always"
+            "showOutput": "never"
         },
         {
             "taskName": "clean",
@@ -25,7 +25,7 @@
             "args": [
                 "${cwd}/${fileBasenameNoExtension}.exe"
             ],
-            "showOutput": "always"
+            "showOutput": "never"
         }
     ]
 }
