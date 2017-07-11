@@ -1,9 +1,31 @@
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
-    "version": "0.1.0",
-    "command": "mcs",
-    "isShellCommand": true,
-    "args": ["-pkg:dotnet","${file}"],
-    "showOutput": "always"
+    "tasks": [
+        {
+            "taskName": "build",
+            "command": "mcs",
+            "isShellCommand": true,
+            "args": [
+                "-pkg:dotnet",
+                "${file}"
+            ],
+            "showOutput": "always"
+        },
+        {
+            "taskName": "run",
+            "command": "${cwd}/${fileBasenameNoExtension}.exe",
+            "isShellCommand": true,
+            "showOutput": "always"
+        },
+        {
+            "taskName": "clean",
+            "command": "rm",
+            "isShellCommand": true,
+            "args": [
+                "${cwd}/${fileBasenameNoExtension}.exe"
+            ],
+            "showOutput": "always"
+        }
+    ]
 }
