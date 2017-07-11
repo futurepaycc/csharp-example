@@ -1,5 +1,5 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // 运行任务的快捷键设计为ctrl+shift+r
     // for the documentation about the tasks.json format
     "tasks": [
         {
