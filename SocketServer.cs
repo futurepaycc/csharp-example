@@ -1,35 +1,24 @@
 using System;
-using System.Net.Sockets;
+using System.Net;
 using System.Text;
-using System.Collections.Generic;
+using System.Net.Sockets;
 
 public class SocketServer1{
-    public static void Main(){
-        TcpListener serverSocket = new TcpListener(8888);
-        int requestCount = 0;
-        TcpClient clientScoket = default(TcpClient);
-        serverSocket.Start();
-        Console.WriteLine(">>server started");
-        clientScoket = serverSocket.AcceptTcpClient();
-        Console.WriteLine(">>accecpt conn from client");
-        requestCount = 0;
-        while(true){
-            requestCount += 1;
-            NetworkStream networkStream = clientScoket.GetStream();
-            byte[] bytesFrom = new byte[10025];
-            networkStream.Read(bytesFrom,0,clientScoket.ReceiveBufferSize);
-            string dataFromClient = Encoding.ASCII.GetString(bytesFrom);
-            dataFromClient = dataFromClient.Substring(0,dataFromClient.IndexOf("$"));
-            Console.WriteLine(">>data froom client -"+dataFromClient);
+    public static void Main(string[] args){
+        int port = 8888;
+        TcpListener listener = new TcpListener(port);
+        listener.Start();
 
-            string serverResponse = "Last Message from client"+dataFromClient;
-            byte[] sendBytes = Encoding.ASCII.GetBytes(serverResponse);
-            networkStream.Write(sendBytes,0,sendBytes.Length);
-            networkStream.Flush();
-            Console.WriteLine(">>"+serverResponse);
-        }
-        clientScoket.Close();
-        serverSocket.Stop();
-        Console.WriteLine(">>exit");
+        Console.WriteLine(">> server listening at 8888");
+        TcpClient client = listener.AcceptTcpClient();
+        Console.WriteLine(">> conn accept");
+
+        NetworkStream clientStream = client.GetStream();
+        string response = "conn has been accepted";
+        byte[] responseBytes = Encoding.ASCII.GetBytes(response);
+        clientStream.Write(responseBytes,0,responseBytes.Length);
+
+        client.Close();
+        listener.Stop();
     }
 }
