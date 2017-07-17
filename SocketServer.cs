@@ -5,8 +5,7 @@ using System.Net.Sockets;
 
 public class SocketServer1{
     public static void Main(string[] args){
-        int port = 8888;
-        TcpListener listener = new TcpListener(IPAddress.Loopback,port);
+        TcpListener listener = new TcpListener(IPAddress.Parse("127.0.0.1"),8888);
         listener.Start();
 
         Console.WriteLine(">> server listening at 8888");
